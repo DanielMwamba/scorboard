@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scoreboard</title>
+    <link rel="stylesheet" href="style1.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Basketball Scoreboard Manager</h1>
+
+        <div class="score-controls">
+            <div class="team-controls">
+                <div class="form-group">
+                    <label for="teamAName">Team A Name</label>
+                    <input type="text" id="teamAName" placeholder="Enter Team A Name">
+                </div>
+                <div class="form-group">
+                    <label for="teamAScore">Team A Score</label>
+                    <input type="number" id="teamAScore" value="0" readonly>
+                </div>
+                <div class="score-row">
+                    <button id="teamAPlus1" class="increment">+1</button>
+                    <button id="teamAPlus2" class="increment">+2</button>
+                    <button id="teamAPlus3" class="increment">+3</button>
+                </div>
+                <div class="score-row">
+                    <button id="teamAMinus1" class="decrement">-1</button>
+                    <button id="teamAMinus2" class="decrement">-2</button>
+                    <button id="teamAMinus3" class="decrement">-3</button>
+                </div>
+            </div>
+
+            <div class="team-controls">
+                <div class="form-group">
+                    <label for="teamBName">Team B Name</label>
+                    <input type="text" id="teamBName" placeholder="Enter Team B Name">
+                </div>
+                <div class="form-group">
+                    <label for="teamBScore">Team B Score</label>
+                    <input type="number" id="teamBScore" value="0" readonly>
+                </div>
+                <div class="score-row">
+                    <button id="teamBPlus1" class="increment">+1</button>
+                    <button id="teamBPlus2" class="increment">+2</button>
+                    <button id="teamBPlus3" class="increment">+3</button>
+                </div>
+                <div class="score-row">
+                    <button id="teamBMinus1" class="decrement">-1</button>
+                    <button id="teamBMinus2" class="decrement">-2</button>
+                    <button id="teamBMinus3" class="decrement">-3</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="gameTimer">Game Timer</label>
+            <input type="text" id="gameTimer" value="10:00" readonly>
+        </div>
+
+        <div class="timer-controls">
+            <button id="startTimer">Start</button>
+            <button id="stopTimer">Stop</button>
+            <button id="resetTimer">Reset</button>
+        </div>
+
+        <div class="form-group">
+            <label for="shotClock">Shot Clock</label>
+            <input type="text" id="shotClock" value="24" readonly>
+        </div>
+
+        <div class="timer-controls">
+            <button id="startShotClock">Start</button>
+            <button id="stopShotClock">Stop</button>
+            <button id="resetShotClock">Reset</button>
+        </div>
+
+        <div class="form-group">
+            <label for="period">Game Period</label>
+            <select id="period">
+                <option value="1">1st Quarter</option>
+                <option value="2">2nd Quarter</option>
+                <option value="3">3rd Quarter</option>
+                <option value="4">4th Quarter</option>
+                <option value="OT">Overtime</option>
+            </select>
+        </div>
+
+        <button id="saveChanges" style="background-color: #17a2b8; color: white; margin-top: 20px;">Save Changes</button>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
+
