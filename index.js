@@ -1,5 +1,6 @@
 // WebSocket setup
-const ws = new WebSocket("ws://localhost:8080");
+// ws://localhost:8080
+const ws = new WebSocket("wss://lotto-r7aq.onrender.com/");
 
 ws.onopen = () => console.log("WebSocket connected");
 ws.onerror = (error) => console.error("WebSocket error:", error);
