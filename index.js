@@ -1,8 +1,15 @@
 // WebSocket setup
 // ws://localhost:8080
-const ws = new WebSocket("wss://lotto-r7aq.onrender.com/");
+// wss://lotto-r7aq.onrender.com/
+const ws = new WebSocket("wss://scoreboard-t4k5.onrender.com");
 
-ws.onopen = () => console.log("WebSocket connected");
+ws.onopen = () => {
+  console.log("WebSocket connected");
+
+  // Envoyer l'identification du type de client
+  ws.send(JSON.stringify({ type: "dashboard" }));
+};
+
 ws.onerror = (error) => console.error("WebSocket error:", error);
 
 // Helper: Send data via WebSocket
@@ -32,7 +39,8 @@ const updateScore = (team, points) => {
   const newScore = Math.max(currentScore + points, 0); // Prevent negative scores
   scoreElement.value = newScore;
 
-  sendUpdate({ [`${team}Score`]: newScore });
+  // Envoyer une mise à jour via WebSocket
+  sendUpdate({ action: "updateScore", [`${team}Score`]: newScore });
 };
 
 // Helper: Attach score controls
@@ -64,7 +72,7 @@ const handleGameTimer = {
     state.gameTimerInterval = setInterval(() => {
       if (seconds === 0 && minutes === 0) {
         clearInterval(state.gameTimerInterval);
-        sendUpdate({ gameTimer: "00:00" });
+        sendUpdate({ action: "updateTimer", gameTimer: "00:00" });
         return;
       }
 
@@ -78,7 +86,7 @@ const handleGameTimer = {
       gameTimer.value = `${String(minutes).padStart(2, "0")}:${String(
         seconds
       ).padStart(2, "0")}`;
-      sendUpdate({ gameTimer: gameTimer.value });
+      sendUpdate({ action: "updateTimer", gameTimer: gameTimer.value });
     }, 1000);
   },
   stop: () => clearInterval(state.gameTimerInterval),
@@ -87,7 +95,7 @@ const handleGameTimer = {
     const gameTimer = document.getElementById("gameTimer");
     if (gameTimer) {
       gameTimer.value = "10:00";
-      sendUpdate({ gameTimer: "10:00" });
+      sendUpdate({ action: "updateTimer", gameTimer: "10:00" });
     }
   },
 };
@@ -108,13 +116,13 @@ const handleShotClock = {
     state.shotClockInterval = setInterval(() => {
       if (seconds === 0) {
         clearInterval(state.shotClockInterval);
-        sendUpdate({ shotClock: "00" });
+        sendUpdate({ action: "updateShotClock", shotClock: "00" });
         return;
       }
 
       seconds--;
       shotClock.value = String(seconds).padStart(2, "0");
-      sendUpdate({ shotClock: shotClock.value });
+      sendUpdate({ action: "updateShotClock", shotClock: shotClock.value });
     }, 1000);
   },
   stop: () => clearInterval(state.shotClockInterval),
@@ -123,7 +131,7 @@ const handleShotClock = {
     const shotClock = document.getElementById("shotClock");
     if (shotClock) {
       shotClock.value = "24";
-      sendUpdate({ shotClock: "24" });
+      sendUpdate({ action: "updateShotClock", shotClock: "24" });
     }
   },
 };
@@ -131,6 +139,7 @@ const handleShotClock = {
 // Save Changes
 const saveChanges = () => {
   const data = {
+    action: "saveChanges",
     teamAName: document.getElementById("teamAName")?.value || "",
     teamBName: document.getElementById("teamBName")?.value || "",
     period: document.getElementById("period")?.value || "",
